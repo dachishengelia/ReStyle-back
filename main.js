@@ -10,7 +10,10 @@ const app = express();
 app.use(express.json());
 app.use("/products", productRoutes);
 app.use("/subscription", subscriptionRoutes);
-
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ message: "Internal Server Error", error: err.message });
+});
 // app.all("*", (req, res) => {
 //   res
 //     .status(200)
